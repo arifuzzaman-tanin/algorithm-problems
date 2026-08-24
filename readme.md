@@ -139,6 +139,7 @@ console.log(firstNonRepeatingNumber(numbers));
 Given a word, convert it to **Pig Latin** using these rules:
 
 - Find the first vowel: `a, e, i, o, u`
+- Treat `y` as a vowel only when it is not the first letter
 - Move all letters before the first vowel to the end
 - Add `"ay"`
 - If the word starts with a vowel, just add `"ay"`
@@ -151,7 +152,7 @@ school   → oolschay
 computer → omputercay
 string   → ingstray
 apple    → appleay
-rhythm   → rhythmay
+rhythm   → ythmrhay
 ```
 
 ### Solution
@@ -159,10 +160,11 @@ rhythm   → rhythmay
 ```javascript
 function toPigLatin(word) {
   const vowels = new Set(['a', 'e', 'i', 'o', 'u']);
+  const isVowel = (ch, index) => vowels.has(ch) || (ch === 'y' && index > 0);
 
   for (let i = 0; i < word.length; i++) {
-    if (vowels.has(word[i])) {
-      return word.substring(i) + word.substring(0, i) + 'ay';
+    if (isVowel(word[i], i)) {
+      return word.slice(i) + word.slice(0, i) + 'ay';
     }
   }
 
@@ -173,7 +175,7 @@ console.log(toPigLatin("school"));    // oolschay
 console.log(toPigLatin("computer"));  // omputercay
 console.log(toPigLatin("string"));    // ingstray
 console.log(toPigLatin("apple"));     // appleay
-console.log(toPigLatin("rhythm"));    // rhythmay
+console.log(toPigLatin("rhythm"));    // ythmrhay
 ```
 
 ### How it works
