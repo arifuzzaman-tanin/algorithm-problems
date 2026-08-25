@@ -324,3 +324,68 @@ false
 
 - Time: **O(n)**
 - Space: **O(1)**
+
+## Problem 6: Find Pairs With Target Sum
+
+### Problem
+
+Given a sorted array of numbers and a target value, find all pairs whose sum is equal to the target.
+
+### Example
+
+```javascript
+const arr = [1, 2, 4, 6, 8, 10];
+const target = 10;
+```
+
+Valid pairs:
+
+```text
+(2, 8)
+(4, 6)
+```
+
+### Solution
+
+```javascript
+function findPairsWithTargetSum(arr, target) {
+  const pairs = [];
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    const sum = arr[left] + arr[right];
+
+    if (sum === target) {
+      pairs.push([arr[left], arr[right]]);
+
+      left++;
+      right--;
+    }
+    else if (sum > target) {
+      right--;
+    }
+    else {
+      left++;
+    }
+  }
+
+  return pairs;
+}
+
+const arr = [1, 2, 4, 6, 8, 10];
+const target = 10;
+
+console.log(findPairsWithTargetSum(arr, target));
+```
+
+### Output
+
+```text
+[ [ 2, 8 ], [ 4, 6 ] ]
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(k)** where `k` is the number of pairs found.
