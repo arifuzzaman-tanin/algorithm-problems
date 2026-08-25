@@ -207,3 +207,120 @@ Then:
 
 - Time: **O(n)**
 - Space: **O(1)** ignoring the returned string.
+
+## Problem 4: Binary Search
+
+### Problem
+
+Given a sorted array of numbers, find a target value using binary search.
+
+If the target is found, return the target value. Otherwise, return `-1`.
+
+### Example
+
+```javascript
+const arr = [10, 20, 30, 40, 50, 60, 70, 90];
+const result = binarySearch(arr, 60);
+```
+
+Output:
+
+```text
+60
+```
+
+### Solution
+
+```javascript
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    const half = Math.floor((left + right) / 2);
+    const mid = arr[half];
+
+    if (mid === target) {
+      return mid;
+    }
+
+    if (mid > target) {
+      right = half - 1;
+    }
+    else {
+      left = half + 1;
+    }
+  }
+
+  return -1;
+}
+
+const arr = [10, 20, 30, 40, 50, 60, 70, 90];
+const result = binarySearch(arr, 60);
+
+console.log(result);
+```
+
+### Output
+
+```text
+60
+```
+
+### Complexity
+
+- Time: **O(log n)**
+- Space: **O(1)**
+
+## Problem 5: Check Palindrome Text
+
+### Problem
+
+Given a text string, check whether it reads the same forward and backward.
+
+### Solution
+
+```javascript
+function isPalindromeText(text) {
+  let left = 0;
+  let right = text.length - 1;
+
+  while (left < right) {
+    if (text[left] !== text[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+
+  return true;
+}
+
+console.log(isPalindromeText('madam'));      // true
+console.log(isPalindromeText('hello'));      // false
+console.log(isPalindromeText('racecar'));    // true
+console.log(isPalindromeText('javascript')); // false
+console.log(isPalindromeText('abba'));       // true
+console.log(isPalindromeText('apple'));      // false
+console.log(isPalindromeText('noon'));       // true
+console.log(isPalindromeText('world'));      // false
+```
+
+### Output
+
+```text
+true
+false
+true
+false
+true
+false
+true
+false
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
