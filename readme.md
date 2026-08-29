@@ -389,3 +389,351 @@ console.log(findPairsWithTargetSum(arr, target));
 
 - Time: **O(n)**
 - Space: **O(k)** where `k` is the number of pairs found.
+
+## Problem 7: Reverse an Array
+
+### Problem
+
+Given an array, reverse the order of its elements in place.
+
+### Solution
+
+```javascript
+function reverseArray(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    const temp = arr[left];
+    arr[left] = arr[right];
+    arr[right] = temp;
+
+    left++;
+    right--;
+  }
+
+  return arr;
+}
+
+const arr = [1, 2, 3, 4, 5];
+
+console.log(reverseArray(arr));
+```
+
+### Output
+
+```text
+[5, 4, 3, 2, 1]
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+## Problem 8: Remove Duplicates From Sorted Array
+
+### Problem
+
+Given a sorted array, remove duplicate values and return an array containing only the unique values.
+
+### Solution
+
+```javascript
+function removeDuplicates(arr) {
+  let left = 0;
+
+  for (let right = 1; right < arr.length; right++) {
+    if (arr[right] !== arr[left]) {
+      left++;
+      arr[left] = arr[right];
+    }
+  }
+
+  return arr.slice(0, left + 1);
+}
+
+const arr = [1, 1, 2, 2, 3, 4, 4];
+
+console.log(removeDuplicates(arr));
+```
+
+### Output
+
+```text
+[1, 2, 3, 4]
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)** ignoring the returned array.
+
+## Problem 9: Move Target Values to End
+
+### Problem
+
+Given an array and a target value, move every occurrence of the target value to the end of the array.
+
+### Solution
+
+```javascript
+function moveTargetToEnd(arr, target) {
+  if (arr.length === 0) return [];
+
+  let left = 0;
+
+  for (let right = 0; right < arr.length; right++) {
+    if (arr[right] !== target) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+    }
+  }
+
+  return arr;
+}
+
+const arr = [0, 1, 0, 3, 12];
+
+console.log(moveTargetToEnd(arr, 0));
+```
+
+### Output
+
+```text
+[1, 3, 12, 0, 0]
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+## Problem 10: Square Sorted Array
+
+### Problem
+
+Given a sorted array of numbers, return a new array containing the squares of each number in sorted order.
+
+### Solution
+
+```javascript
+function squareSortedArray(nums) {
+  if (nums.length === 0) return [];
+
+  let left = 0;
+  let right = nums.length - 1;
+  let position = nums.length - 1;
+  let result = [];
+
+  const squareNumber = (n) => Math.pow(n, 2);
+
+  while (left <= right) {
+    const leftNumber = squareNumber(nums[left]);
+    const rightNumber = squareNumber(nums[right]);
+
+    if (leftNumber > rightNumber) {
+      result[position] = leftNumber;
+      left++;
+    }
+    else {
+      result[position] = rightNumber;
+      right--;
+    }
+
+    position--;
+  }
+
+  return result;
+}
+
+const nums = [-7, -3, 2, 3, 11];
+
+console.log(squareSortedArray(nums));
+```
+
+### Output
+
+```text
+[4, 9, 9, 49, 121]
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(n)**
+
+## Problem 11: Missing Number
+
+### Problem
+
+Given an array containing numbers from `1` to `n` with one number missing, find the missing number.
+
+### Solution
+
+```javascript
+function missingNumber(nums) {
+  const n = nums.length + 1;
+  const actualSum = (n * (n + 1)) / 2;
+
+  let sum = 0;
+
+  for (const a of nums) {
+    sum += a;
+  }
+
+  return actualSum - sum;
+}
+
+const nums = [3, 7, 1, 2, 8, 4, 5];
+
+console.log(missingNumber(nums));
+```
+
+### Output
+
+```text
+6
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+## Problem 12: Reverse Text
+
+### Problem
+
+Given an array of characters, reverse the characters in place.
+
+### Solution
+
+```javascript
+function reverseText(chars) {
+    if (chars.length === 0) return [];
+
+    let left = 0;
+    let right = chars.length - 1;
+
+    while (left < right) {
+        [chars[left], chars[right]] = [chars[right], chars[left]];
+
+        left++;
+        right--;
+    }
+
+    return chars;
+}
+
+const chars = ['h', 'e', 'l', 'l', 'o'];
+console.log(reverseText(chars));
+```
+
+### Output
+
+```text
+['o', 'l', 'l', 'e', 'h']
+```
+
+### Complexity
+
+- Time: **O(n)**
+- Space: **O(1)**
+
+## Problem 13: Sum Unique Three Numbers
+
+### Problem
+
+Given an array of numbers, find all unique triplets that add up to `0`.
+
+### Solution
+
+```javascript
+function sumUniqueThreeNumbers(nums) {
+    if (nums.length === 0) return [];
+
+    let uniqueNums = new Set();
+
+    for (const n of nums) {
+        if (!uniqueNums.has(n)) {
+            uniqueNums.add(n);
+        }
+    }
+
+    let sortedNums = [...uniqueNums].sort((a, b) => a - b);
+
+    let result = [];
+    let uniqueCombination = new Map();
+
+    for (let i = 0; i < sortedNums.length - 1; i++) {
+        let left = 0;
+        let right = sortedNums.length - 1;
+
+        while (left < right) {
+            const sum = sortedNums[left] + sortedNums[right] + sortedNums[i];
+
+            if (sum === 0) {
+                const combination = [sortedNums[left], sortedNums[i], sortedNums[right]].sort((a, b) => a - b);
+
+                if (!uniqueCombination.has(combination.toString())) {
+                    uniqueCombination.set(combination.toString(), combination);
+                }
+                left++;
+                right--;
+            }
+
+            if (sum > 0) {
+                right--;
+            }
+            else {
+                left++;
+            }
+        }
+    }
+
+    for (const a of uniqueCombination) {
+        result.push(a[1]);
+    }
+
+    return result;
+}
+
+const nums = [-1, 0, 1, 2, -1, -4];
+console.log(sumUniqueThreeNumbers(nums));
+```
+
+### Output
+
+```text
+[[-1, 0, 1]]
+```
+
+### Complexity
+
+- Time: **O(n^2)**
+- Space: **O(n)**
+
+## Problem 14: Reverse Words
+
+### Problem
+
+Given a string, reverse the order of the words.
+
+### Solution
+
+```javascript
+function reverseWord(str) {
+    const words = str.split(" ");
+    let text = [];
+
+    for (let i = words.length - 1; i >= 0; i--) {
+        text.push(words[i]);
+    }
+
+    return text.join(" ");
+}
+
+const str = "Hello World Arif";
+console.log(reverseWord(str));
+```
