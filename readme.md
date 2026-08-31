@@ -737,3 +737,37 @@ function reverseWord(str) {
 const str = "Hello World Arif";
 console.log(reverseWord(str));
 ```
+
+## Problem 15: Change Coin
+
+### Problem
+
+Given a list of coin denominations and an amount, return the coins needed to make that amount.
+
+### Solution
+
+```javascript
+function changeCoin(coins, amount) {
+    if (coins.length === 0) return [];
+
+    let changedCoins = [];
+
+    for (let i = coins.length - 1; i >= 0; i--) {
+        if (coins[i] <= amount) {
+            const count = Math.floor(amount / coins[i]);
+
+            for (let j = 0; j < count; j++) {
+                changedCoins.push(coins[i]);
+            }
+
+            amount %= coins[i];
+        }
+    }
+
+    return changedCoins;
+}
+
+const coins = [1, 2, 5, 10, 20, 50];
+const amount = 45;
+console.log(changeCoin(coins, amount));
+```
